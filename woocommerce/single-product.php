@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header( 'shop' ); ?>
-SINGLE PRODUCT local
+<!-- SINGLE PRODUCT -->
 	<?php
 		/**
 		 * woocommerce_before_main_content hook.
@@ -30,7 +30,7 @@ SINGLE PRODUCT local
 		 */
 		do_action( 'woocommerce_before_main_content' );
 	?>
-where
+
 		<?php while ( have_posts() ) : ?>
 			<?php the_post(); ?>
 
