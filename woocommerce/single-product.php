@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header( 'shop' ); ?>
-<!-- SINGLE PRODUCT -->
+<!-- SINGLE PRODUCT local -->
 	<?php
 		/**
 		 * woocommerce_before_main_content hook.
@@ -46,10 +46,7 @@ get_header( 'shop' ); ?>
 		 */
 		do_action( 'woocommerce_after_main_content' );
 	?>
-<?php 
-$product_id = 698; // the product ID is defined here or dynamically…
-parent_permalink_button( $product_id );
-?>
+
 	<?php
 		/**
 		 * woocommerce_sidebar hook.
