@@ -21,4 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 the_title( '<h1 class="product_title entry-title">', '</h1>' ); ?>
 <h5 class="product-subtitle"><?php the_field('subtitle'); ?></h5>
-<h6><?php the_field('credits'); ?></h6>
+<h6 class="credits"><?php the_field('credits'); ?></h6>

@@ -75,15 +75,16 @@ do_action( 'woocommerce_before_cart' ); ?>
 						</td>
 
 						<td class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-						
+							
 						<?php
 						if ( ! $product_permalink ) {
 							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
 						} else {
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
-						}
+							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) ); 
+						} ?>
 						
-
+						<?php
+					  
 						do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
 
 						// Meta data.
