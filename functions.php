@@ -97,10 +97,10 @@ function custom_product_title_name( $cart_item_name, $cart_item, $cart_item_key 
             return $group_product['name'] . ' > ' . $product->get_name();
         else
             return sprintf(
-                '%s <br><a href="%s">%s</a>',
-                $product->get_name(),
+                '<a href="%s">%s</a><br>%s',
                 esc_url( $group_prod_link ),
                 $group_product['name'],
+                $product->get_name(),
             );
     }
     else
@@ -133,12 +133,11 @@ function custom_order_item_name( $item_name, $item, $is_visible ) {
         ) : $item->get_name();
     } else {
         $item_name = $product_permalink ? sprintf(
-            '<a href="%s">%s</a> > <a href="%s">%s</a>',
-            $grouped_data['link'],
-            $grouped_data['name'],
-            esc_url( $product_permalink) ,
-            $item->get_name()
-        ) : $grouped_data['name'] . ' > ' . $item->get_name();
+            '<a href="%s">%s</a><br>%s',
+            esc_url( $group_prod_link ),
+            $group_product['name'],
+            $product->get_name()
+        ) : '<a href=' . $grouped_data['link'] . '> ' .$grouped_data['name'] . ' </a><br> ' . $item->get_name();
     }
     return $item_name;
 }
@@ -152,8 +151,8 @@ function backend_order_item_name_grouped( $item_id, $item, $product ){
     if( empty($grouped_data) ) return;
     $product_link = admin_url( 'post.php?post=' . $grouped_data['id'] . '&action=edit' );
     $grouped_name_html = '<a href="' . esc_url( $grouped_data['link'] ) . '" class="wc-order-item-name">' . esc_html( $grouped_data['name'] ) . '</a>';
-    echo '<br><br><div class="wc-order-item-name">
-        <small><strong>'.__('Grouped parent').':</strong></small><br>
+    echo '<br><div class="wc-order-item-name">
+        <small><strong>'.__('Group').':</strong></small><br>
         ' . $grouped_name_html . '
     </div>';
 }
