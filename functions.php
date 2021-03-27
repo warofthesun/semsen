@@ -179,7 +179,7 @@ function bbloomer_add_name_woo_account_registration() {
     </p>
   
     <p class="form-row form-row-last">
-    <label for="reg_billing_last_name"><?php _e( 'Last name', 'woocommerce' ); ?> <span class="required">*</span></label>
+    <label for="reg_billing_last_name"><?php _e( 'Last name', 'woocommerce' ); ?> </label>
     <input type="text" class="input-text" name="billing_last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
     </p>
   
@@ -196,9 +196,6 @@ add_filter( 'woocommerce_registration_errors', 'bbloomer_validate_name_fields', 
 function bbloomer_validate_name_fields( $errors, $username, $email ) {
     if ( isset( $_POST['billing_first_name'] ) && empty( $_POST['billing_first_name'] ) ) {
         $errors->add( 'billing_first_name_error', __( '<strong>Error</strong>: First name is required!', 'woocommerce' ) );
-    }
-    if ( isset( $_POST['billing_last_name'] ) && empty( $_POST['billing_last_name'] ) ) {
-        $errors->add( 'billing_last_name_error', __( '<strong>Error</strong>: Last name is required!.', 'woocommerce' ) );
     }
     return $errors;
 }
@@ -218,4 +215,67 @@ function bbloomer_save_name_fields( $customer_id ) {
         update_user_meta( $customer_id, 'last_name', sanitize_text_field($_POST['billing_last_name']) );
     }
   
+}
+
+remove_filter('authenticate', 'wp_authenticate_username_password', 20);
+
+add_filter('authenticate', function($user, $email, $password){
+
+    //Check for empty fields
+    if(empty($email) || empty ($password)){        
+        //create new error object and add errors to it.
+        $error = new WP_Error();
+
+        if(empty($email)){ //No email
+            $error->add('empty_username', __('<strong>ERROR</strong>: Email field is empty.'));
+        }
+        else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ //Invalid Email
+            $error->add('invalid_username', __('<strong>ERROR</strong>: Email is invalid.'));
+        }
+
+        if(empty($password)){ //No password
+            $error->add('empty_password', __('<strong>ERROR</strong>: Password field is empty.'));
+        }
+
+        return $error;
+    }
+
+    //Check if user exists in WordPress database
+    $user = get_user_by('email', $email);
+
+    //bad email
+    if(!$user){
+        $error = new WP_Error();
+        $error->add('invalid', __('<strong>ERROR</strong>: Either the email or password you entered is invalid.'));
+        return $error;
+    }
+    else{ //check password
+        if(!wp_check_password($password, $user->user_pass, $user->ID)){ //bad password
+            $error = new WP_Error();
+            $error->add('invalid', __('<strong>ERROR</strong>: Either the email or password you entered is invalid.'));
+            return $error;
+        }else{
+            return $user; //passed
+        }
+    }
+}, 20, 3);
+
+add_filter('gettext', function($text){
+    if(in_array($GLOBALS['pagenow'], array('wp-login.php'))){
+        if('Username' == $text){
+            return 'Email';
+        }
+    }
+    return $text;
+}, 20);
+
+add_filter( 'gettext', 'register_text' );
+add_filter( 'ngettext', 'register_text' );
+function register_text( $translated ) {
+    $translated = str_ireplace(
+        'Username or Email Address',
+        'Email Address',
+        $translated
+    );
+    return $translated;
 }
