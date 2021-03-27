@@ -283,3 +283,33 @@ function register_text( $translated ) {
     );
     return $translated;
 }
+
+// First, change the required password strength
+add_filter( 'woocommerce_min_password_strength', 'reduce_min_strength_password_requirement' );
+function reduce_min_strength_password_requirement( $strength ) {
+    // 3 => Strong (default) | 2 => Medium | 1 => Weak | 0 => Very Weak (anything).
+    return 0; 
+}
+
+// function iconic_remove_password_strength() {
+//    wp_dequeue_script( 'wc-password-strength-meter' );
+// }
+// add_action( 'wp_print_scripts', 'iconic_remove_password_strength', 10 );
+
+// change the wording of the password hint.
+ add_filter( 'password_hint', 'smarter_password_hint' );
+ function smarter_password_hint ( $hint ) {
+    $hint = 'Hint: The password should be at least 10 characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).';
+    return $hint;
+}
+
+add_filter( 'gettext', 'change_registration_usename_label', 10, 3 );
+function change_registration_usename_label( $translated, $text, $domain ) {
+    if( is_account_page() && ! is_wc_endpoint_url() ) {
+        if( $text === 'Register' ) {
+            $translated = __( 'Create Account', $domain );
+        } 
+    }
+
+    return $translated;
+}
