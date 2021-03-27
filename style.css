@@ -25,6 +25,10 @@ Template: astra
 	font-size: .9em;
 }
 
+.woo-username {
+	display: none;
+}
+
 @media screen and (min-width: 920px) { 
 	.product-sidebar {
 		max-width: 360px;
