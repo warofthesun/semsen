@@ -47,16 +47,16 @@ function my_acf_settings_dir( $dir ) {
 include_once( get_stylesheet_directory() . '/inc/acf/acf.php' );
 
 // Turn on ACF Options Page
-//if( function_exists('acf_add_options_page') ) {
+if( function_exists('acf_add_options_page') ) {
 
- //   acf_add_options_page(array(
- //       'page_title' 	=> 'Theme General Settings',
- //       'menu_title'	=> 'Theme Settings',
- //       'menu_slug' 	=> 'theme-general-settings',
- //       'capability'	=> 'edit_posts',
- //       'redirect'		=> true
- //   ));
-//}
+    acf_add_options_page(array(
+        'page_title' 	=> 'Universal Product Settings',
+        'menu_title'	=> 'Product Settings',
+        'menu_slug' 	=> 'universal-product-settings',
+        'capability'	=> 'edit_posts',
+        'redirect'		=> true
+    ));
+}
 
 // Adding the grouped product ID custom hidden field data in Cart object
 add_filter( 'woocommerce_add_cart_item_data', 'save_custom_fields_data_to_cart', 20, 2 );

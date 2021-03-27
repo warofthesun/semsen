@@ -56,9 +56,13 @@ $wrapper_classes   = apply_filters(
 	</figure>
 	
 </div>
+<?php if (get_field('soundcloud_player')) : ?>
 <div class="soundcloud-container">
+	<h5 class="sidebar-header"><?php the_field('soundcloud_header' , 'option'); ?></h5>
+	<?php the_field('soundcloud_body', 'option'); ?>
 	<?php the_field('soundcloud_player'); ?>
 </div>
+<?php endif; ?>
 </div>
 
 
