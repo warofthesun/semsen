@@ -313,3 +313,17 @@ function change_registration_usename_label( $translated, $text, $domain ) {
 
     return $translated;
 }
+
+if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
+
+    /**
+     * Show the product title in the product loop. By default this is an H2.
+     */
+    function woocommerce_template_loop_product_title() {
+        echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<span class="additional-info">';
+        if (get_field('subtitle')) : echo '<span class="subtitle">'; the_field('subtitle'); echo '</span>'; endif;
+        if (get_field('credits')) : echo '<span class="credits">'; the_field('credits'); echo '</span>'; endif;
+        echo '</span>';
+    }
+}

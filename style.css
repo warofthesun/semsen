@@ -3,7 +3,7 @@ Theme Name: Semsen Music
 Author: Brainstorm Force
 Author URI: http://wpastra.com/about/
 Description: Custom WooCommerce adjustments
-Version: 0.1.6
+Version: 0.1.7
 GitHub Theme URI: https://github.com/warofthesun/semsen.git
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -44,6 +44,18 @@ Template: astra
 	background: transparent !important;
 	padding: 1em 0 0 0 !important;
 	text-align: left;
+}
+
+.ast-loop-product__link .additional-info {
+	display: block;
+	line-height: 1.5;
+	margin-bottom: .5em;
+	color: rgb(46, 46, 46);
+	font-size: .9em;
+}
+
+.ast-loop-product__link .additional-info .subtitle {
+	display: block;
 }
 
 @media screen and (min-width: 920px) { 
