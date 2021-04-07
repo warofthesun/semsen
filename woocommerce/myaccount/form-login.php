@@ -24,7 +24,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
 
 <div class="u-columns col2-set" id="customer_login">
-FORM LOGIN
+
 	<div class="u-column1 col-1">
 
 <?php endif; ?>
@@ -36,7 +36,7 @@ FORM LOGIN
 			<?php do_action( 'woocommerce_login_form_start' ); ?>
 
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-				form login
+				
 				<label for="username"><?php esc_html_e( 'Email address', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
 				<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>" /><?php // @codingStandardsIgnoreLine ?>
 			</p>
